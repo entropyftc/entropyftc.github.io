@@ -1,0 +1,275 @@
+/* Base Styles */
+:root {
+    --primary-dark: #1c2224;
+    --secondary: #4f60c6;
+    --highlight: #4f60c6;
+    --text-light: #ffffff;
+    --text-dark: #000000;
+    --bg-light: #f8f9fa;
+    --accent: #6c757d;
+}
+
+body {
+    font-family: 'Rajdhani', sans-serif;
+    color: var(--text-dark);
+    background-color: var(--bg-light);
+    overflow-x: hidden;
+}
+
+/* Grid Background Animation */
+.grid-lines {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        linear-gradient(90deg, var(--primary-dark) 1px, transparent 1px),
+        linear-gradient(var(--primary-dark) 1px, transparent 1px);
+    background-size: 40px 40px;
+    opacity: 0.1;
+    z-index: -1;
+}
+
+/* Glass Navigation */
+.glass-nav {
+    background: rgba(28, 34, 36, 0.8);
+    backdrop-filter: blur(10px);
+    padding: 20px 0;
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.team-number {
+    font-weight: 700;
+    color: var(--text-light);
+    font-size: 1.5rem;
+}
+
+.team-name {
+    font-weight: 700;
+    color: var(--highlight);
+    font-size: 1.5rem;
+    letter-spacing: 2px;
+}
+
+/* Split Hero Section */
+.split-hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 100vh;
+    padding-top: 80px;
+}
+
+.hero-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 5%;
+}
+
+.hero-right {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+h1 {
+    font-size: 3.5rem;
+    line-height: 1.2;
+    margin-bottom: 20px;
+}
+
+.highlight {
+    color: var(--highlight);
+}
+
+.subtitle {
+    font-family: 'Roboto Mono', monospace;
+    color: var(--accent);
+    margin-bottom: 30px;
+}
+
+/* Button Styles */
+.btn-primary {
+    background: var(--highlight);
+    color: white;
+    padding: 12px 30px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: all 0.3s;
+    display: inline-block;
+    margin-right: 15px;
+}
+
+.btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(79, 96, 198, 0.3);
+}
+
+.btn-secondary {
+    border: 2px solid var(--highlight);
+    color: var(--highlight);
+    padding: 10px 25px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: all 0.3s;
+    display: inline-block;
+}
+
+/* Floating Robot Animation */
+.floating {
+    animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-50px); }
+    100% { transform: translateY(0px); }
+}
+
+/* Timeline Section */
+.timeline {
+    position: relative;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.timeline::after {
+    content: '';
+    position: absolute;
+    width: 4px;
+    background-color: var(--highlight);
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    margin-left: -2px;
+}
+
+/* Add remaining CSS for timeline, robot cards, stats counter, etc. */
+.navbar {
+    background-color: #1c2224;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
+    border-bottom: 3px solid #4f60c6;
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px 30px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo img {
+    height: 50px;
+    margin-right: 15px;
+}
+
+.logo-text {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: white;
+}
+
+.logo-text span {
+    color: #4f60c6;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-links li {
+    margin-left: 30px;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.2rem;
+    font-weight: 600;
+    padding: 8px 12px;
+    transition: all 0.3s ease;
+    border-radius: 4px;
+}
+
+.nav-links a:hover {
+    background-color: rgba(79, 96, 198, 0.2);
+    transform: translateY(-2px);
+}
+
+.logo a.logo-text {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: white;
+    text-decoration: none; 
+    display: flex; 
+    align-items: center; 
+}
+
+.logo a.logo-text:hover {
+    color: white; 
+    text-decoration: none; 
+}
+
+.logo a.logo-text span {
+    color: #4f60c6;
+}
+.nav-links a.active {
+    color: #4f60c6;
+    border-bottom: 2px solid #4f60c6;
+}
+
+.mobile-menu-btn {
+    display: none;
+    font-size: 1.8rem;
+    color: white;
+    cursor: pointer;
+}
+
+@media (max-width: 992px) {
+    .nav-links {
+        display: none;
+    }
+    
+    .mobile-menu-btn {
+        display: block;
+    }
+    
+    .nav-container {
+        padding: 15px 20px;
+    }
+    
+    .logo-text {
+        font-size: 1.8rem;
+    }
+}

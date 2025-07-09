@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="512"
+   height="512"
+   viewBox="0 0 512 512"
+   version="1.1"
+   id="svg1"
+   sodipodi:docname="entropy.svg"
+   inkscape:version="1.4 (e7c3feb100, 2024-10-09)"
+   inkscape:export-filename="entropy.png"
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#505050"
+     bordercolor="#ffffff"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="1"
+     inkscape:deskcolor="#505050"
+     inkscape:document-units="px"
+     inkscape:zoom="2.1875"
+     inkscape:cx="256"
+     inkscape:cy="384.91429"
+     inkscape:window-width="1720"
+     inkscape:window-height="1416"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs1">
+    <rect
+       x="121.62237"
+       y="423.2034"
+       width="93.338097"
+       height="159.09903"
+       id="rect1-4" />
+    <rect
+       x="121.62237"
+       y="423.2034"
+       width="93.338097"
+       height="159.09903"
+       id="rect1-4-6" />
+  </defs>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       style="display:inline;fill:#1c2224;fill-opacity:1;stroke:#000000;stroke-width:0.520643;stroke-opacity:0"
+       id="rect10"
+       width="1030.3954"
+       height="931.21289"
+       x="-281.56946"
+       y="-210.46645" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:293.728px;font-family:'Space Mono';-inkscape-font-specification:'Space Mono';text-align:start;letter-spacing:110.148px;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#4f60c6;fill-opacity:1;stroke:#000000;stroke-width:3.33047;stroke-opacity:0"
+       x="51.542473"
+       y="356.47617"
+       id="text11"><tspan
+         sodipodi:role="line"
+         id="tspan11"
+         style="fill:#4f60c6;fill-opacity:1;stroke-width:3.33047"
+         x="51.542473"
+         y="356.47617">𝚫</tspan></text>
+    <text
+       xml:space="preserve"
+       transform="matrix(2.0972145,0,0,2.0972145,25.024247,-780.95886)"
+       id="text1-0"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:133.333px;font-family:'Space Mono';-inkscape-font-specification:'Space Mono Bold';text-align:start;letter-spacing:20px;writing-mode:lr-tb;direction:ltr;white-space:pre;shape-inside:url(#rect1-4);display:inline;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.755906;stroke-opacity:0"><tspan
+         x="121.62305"
+         y="540.70226"
+         id="tspan2"><tspan
+           style="-inkscape-font-specification:'Space Mono'"
+           id="tspan1">S</tspan></tspan></text>
+    <circle
+       style="display:none;opacity:0.327156;fill:#4dc244;fill-opacity:1;stroke:#000000;stroke-width:0.821001;stroke-opacity:0"
+       id="path1"
+       cx="253.88213"
+       cy="255.14"
+       r="255.04015" />
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer3"
+     inkscape:label="Layer 2" />
+</svg>
