@@ -396,3 +396,33 @@ h1 {
         object-fit: contain;
     }
 }
+@media (max-width: 768px) {
+    .hero-buttons {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+        padding: 0 20px;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .hero-buttons a.btn-primary,
+    .hero-buttons a.btn-secondary {
+        display: block !important;
+        width: 100%;
+        max-width: 280px;
+        text-align: center;
+        margin: 0;
+    }
+
+    .logo-text {
+        font-size: 1.4rem !important;
+    }
+
+    .logo img {
+        height: 35px;
+        margin-right: 10px;
+    }
+}
+
