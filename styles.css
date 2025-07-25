@@ -380,3 +380,19 @@ h1 {
         max-width: 100%;
     }
 }
+@media (max-width: 768px) {
+    .robot-3d-model {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        padding-top: 75px;
+        overflow: hidden;
+    }
+
+    .robot-3d-model img.floating {
+        max-width: 90%;
+        height: auto;
+        max-height: 250px;
+        object-fit: contain;
+    }
+}
