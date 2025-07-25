@@ -273,3 +273,110 @@ h1 {
         font-size: 1.8rem;
     }
 }
+
+.site-footer {
+    background-color: var(--primary-dark);
+    color: var(--text-light);
+    padding: 60px 20px 30px;
+    font-family: 'Rajdhani', sans-serif;
+}
+
+.footer-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+    gap: 40px;
+}
+
+.footer-brand h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: white;
+}
+
+.footer-brand h2 span {
+    color: var(--highlight);
+}
+
+.footer-brand p {
+    color: var(--accent);
+    margin-top: 10px;
+    max-width: 300px;
+}
+
+.footer-links ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-links h4,
+.footer-contact h4,
+.footer-social h4 {
+    margin-bottom: 15px;
+    color: var(--highlight);
+    font-size: 1.2rem;
+}
+
+.footer-links li {
+    margin-bottom: 8px;
+}
+
+.footer-links a {
+    color: var(--text-light);
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.footer-links a:hover {
+    color: var(--highlight);
+}
+
+.footer-contact p {
+    margin-bottom: 8px;
+    font-size: 1rem;
+}
+
+.footer-contact i {
+    margin-right: 8px;
+    color: var(--highlight);
+}
+
+.footer-social .social-icons {
+    display: flex;
+    gap: 15px;
+}
+
+.footer-social a {
+    font-size: 1.5rem;
+    color: var(--text-light);
+    transition: color 0.3s;
+}
+
+.footer-social a:hover {
+    color: var(--highlight);
+}
+
+.footer-bottom {
+    text-align: center;
+    margin-top: 40px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 20px;
+    font-size: 0.9rem;
+    color: #bbb;
+}
+
+/* Responsive Layout */
+@media (max-width: 768px) {
+    .footer-container {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .footer-brand, .footer-links, .footer-contact, .footer-social {
+        max-width: 100%;
+    }
+}
