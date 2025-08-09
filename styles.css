@@ -1,4 +1,3 @@
-/* Base Styles */
 :root {
     --primary-dark: #1c2224;
     --secondary: #4f60c6;
@@ -16,7 +15,6 @@ body {
     overflow-x: hidden;
 }
 
-/* Grid Background Animation */
 .grid-lines {
     position: fixed;
     top: 0;
@@ -31,7 +29,6 @@ body {
     z-index: -1;
 }
 
-/* Glass Navigation */
 .glass-nav {
     background: rgba(28, 34, 36, 0.8);
     backdrop-filter: blur(10px);
@@ -60,7 +57,6 @@ body {
     letter-spacing: 2px;
 }
 
-/* Split Hero Section */
 .split-hero {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -127,7 +123,6 @@ h1 {
     display: inline-block;
 }
 
-/* Floating Robot Animation */
 .floating {
     animation: float 6s ease-in-out infinite;
 }
@@ -138,7 +133,6 @@ h1 {
     100% { transform: translateY(0px); }
 }
 
-/* Timeline Section */
 .timeline {
     position: relative;
     max-width: 800px;
@@ -156,7 +150,6 @@ h1 {
     margin-left: -2px;
 }
 
-/* Add remaining CSS for timeline, robot cards, stats counter, etc. */
 .navbar {
     background-color: #1c2224;
     width: 100%;
@@ -426,3 +419,95 @@ h1 {
     }
 }
 
+.robot-working {
+    max-width: 60%; 
+    height: auto;
+}
+.donation-box {
+    background: #f7f7f7;
+    border: 4px solid #ddd;
+    border-radius: 12px;
+    padding: 20px;
+    max-width: 900px;
+    text-align: center;
+    box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
+    font-family: Arial, sans-serif;
+}
+.donation-box h2 {
+    margin-bottom: 10px;
+    font-size: 1.4rem;
+    color: #333;
+}
+.donation-amount {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #28a745;
+    margin: 10px 0;
+}
+.donate-button {
+    display: inline-block;
+    background: #28a745;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    transition:  0.3s ease;
+}
+.donate-button:hover {
+    background: #218838;
+}
+@media only screen and (max-width: 600px) {
+    .donation-box {
+        padding: 15px; 
+        max-width: 70%; 
+    }
+    
+    .donation-box h2 {
+        font-size: 1.2rem; 
+    }
+    
+    .donation-amount {
+        font-size: 1.5rem; 
+    }
+    
+    .donate-button {
+        padding: 8px 16px; 
+        font-size: 0.9rem; 
+    }
+}
+@media only screen and (max-width: 600px) {
+    .donation-box {
+        padding: 15px;
+        max-width: 100%;
+        margin-right: 0; 
+        border-radius: 12px 0 0 12px; 
+    }
+}
+.donation-box {
+    background: #f7f7f7;
+    border: 4px solid #ddd;
+    border-radius: 12px;
+    padding: 20px;
+    max-width: 900px;
+    width: auto;
+    margin: 0 0 30px auto; 
+    text-align: center;
+    box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
+    font-family: Arial, sans-serif;
+    box-sizing: border-box;
+    float: right; 
+    clear: both; 
+}
+
+@media (max-width: 768px) {
+    .split-hero {
+        grid-template-columns: 1fr; 
+    }
+
+    .donation-box {
+        float: none;        
+        width: 100%;       
+        margin: 20px 0 0 0;  
+    }
+}
