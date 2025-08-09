@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles.css">
+  <title>Donate to Support Us — Live Funds</title>
+  <style>
+    :root{--accent:#1976d2}
+    *{box-sizing:border-box}
+    body{font-family:Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; margin:0; min-height:100vh; display:flex; align-items:center; justify-content:center; background:linear-gradient(135deg,#f9f9f9,#e3f2fd); color:#0f172a}
+    .card{background:#fff; border-radius:12px; padding:28px; width:min(720px,95%); box-shadow:0 8px 30px rgba(2,6,23,0.08)}
+    h1{margin:0 0 8px; color:var(--accent); font-size:1.6rem}
+    p.lead{margin:0 0 20px; color:#374151}
+    .status-row{display:flex; gap:12px; align-items:center; margin-bottom:16px}
+    .funds{font-size:2.2rem; font-weight:700; margin:6px 0}
+    .meta{color:#6b7280; font-size:0.95rem}
+    .controls{display:flex; gap:10px; margin-top:16px}
+    button.btn{background:var(--accent); color:white; border:0; padding:10px 14px; border-radius:8px; cursor:pointer; font-weight:600}
+    button.ghost{background:#f3f4f6; color:#111827}
+    #fetch-status{font-size:0.9rem}
+    .hint{background:#f8fafc;border-radius:8px;padding:10px;margin-top:12px;color:#334155}
+    .manual{display:none;margin-top:12px}
+    label{font-size:0.9rem;color:#374151}
+    input[type=number]{padding:8px 10px;border-radius:8px;border:1px solid #e6eef8;width:160px}
+    .graph{margin-top:16px}
+    .small{font-size:0.85rem;color:#6b7280}
+    a.inline{color:var(--accent);text-decoration:none}
+    footer{margin-top:18px;color:#6b7280;font-size:0.85rem}
+    @media (max-width:520px){.funds{font-size:1.6rem}}
+  </style>
+</head>
+<nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <img src="images\entropy.svg" alt="30803 Entropy Logo">
+                <a href="index.html" class="logo-text">#30803 <span>ENTROPY</span></a>
+            </div>
+            
+            <ul class="nav-links">
+                <li><a href="about.html" class="active">About</a></li>
+                <li><a href="robots.html">Robots</a></li>
+                <li><a href="achievements.html">Achievements</a></li>
+                <li><a href="sponsors.html">Sponsors</a></li>
+                <li><a href="buttontest.html">Donate</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            
+            <div class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+<body>
+  <main class="card" role="main">
+    <h1>Support Entropy — Keep us running</h1>
+    <p class="lead">Help us continue our work. Your donation matters — even small amounts add up.</p>
+
+    <div class="status-row">
+      <div>
+        <div class="meta">Current funds (live)</div>
+        <div id="total-funds" class="funds">$0.00</div>
+        <div id="fetch-status" class="small">Not yet loaded</div>
+      </div>
+      <div style="margin-left:auto;text-align:right">
+        <a class="inline" href="https://hcb.hackclub.com/donations/start/entropy" target="_blank" rel="noreferrer">Donate now →</a>
+        <div class="small">Or <a class="inline" href="https://hcb.hackclub.com/entropy/donations" target="_blank" rel="noreferrer">view donations page</a></div>
+      </div>
+    </div>
+
+    <div class="controls">
+      <button class="btn" id="refresh-btn">Refresh</button>
+
+    </div>
+
+    <div id="hint" class="hint" style="display:none">
+      <strong>Heads up:</strong> The public donations page is parsed to find the total. If your browser blocks cross-origin requests (CORS) or the HCB site changes layout, the live number may fail to load. Use the "Manual" control below as a fallback or embed the official iframe provided by HCB.
+    </div>
+
+    <div class="manual" id="manual-section">
+      <label for="manual-value">Manual override (USD):</label>
+      <div style="margin-top:6px;display:flex;gap:8px;align-items:center">
+        <input id="manual-value" type="number" step="0.01" placeholder="352.00" aria-label="manual total value" />
+        <button class="btn" id="apply-manual">Apply</button>
+      </div>
+      <div class="small" style="margin-top:8px">Tip: Exporting donations as JSON from HCB requires signing in. If you can sign in, you can export server-side and serve the number from your own API to avoid CORS and parsing issues.</div>
+    </div>
+
+    <div class="graph">
+      <div class="meta">Donor graph (public image)</div>
+      <img alt="Donor graph" src="https://graph.hcb.hackclub.com/entropy" style="max-width:100%;border-radius:8px;border:1px solid #eef2ff;margin-top:8px" />
+    </div>
+
+
+  </main>
+
+  <script>
+    // ===== Configuration =====
+    const DONATIONS_URL = 'https://hcb.hackclub.com/entropy/donations';
+    const REFRESH_INTERVAL_MS = 15000; // poll every 15s
+
+    // ===== State =====
+    let currentDisplay = 0;
+    let rafId = null;
+    let autoTimer = null;
+
+    // ===== Utilities =====
+    function formatMoney(n){
+      if (typeof n !== 'number' || !isFinite(n)) return '$0.00';
+      return '$' + n.toLocaleString(undefined, {minimumFractionDigits:2, maximumFractionDigits:2});
+    }
+
+    function parseTotalFromHtml(text){
+      if (!text) return null;
+      // Common patterns seen on the HCB page: "Total 352.00" or "Total 352.00\nPer month 0.00"
+      const re1 = /Total\s*[:\-]?\s*\$?\s*([0-9][0-9,]*(?:\.[0-9]+)?)/i;
+      const m1 = text.match(re1);
+      if (m1) return parseFloat(m1[1].replace(/,/g,''));
+
+      // Try a fallback: look for "Total" followed by a number anywhere
+      const re2 = /Total[\s\S]{0,40}?([0-9][0-9,]*\.[0-9]{2})/i;
+      const m2 = text.match(re2);
+      if (m2) return parseFloat(m2[1].replace(/,/g,''));
+
+      return null;
+    }
+
+    function animateCounter(target, duration = 900){
+      if (typeof target !== 'number' || !isFinite(target)) return;
+      if (rafId) cancelAnimationFrame(rafId);
+      const start = performance.now();
+      const from = currentDisplay;
+      function step(now){
+        const t = Math.min(1, (now - start) / duration);
+        // easeOutCubic
+        const ease = 1 - Math.pow(1 - t, 3);
+        currentDisplay = from + (target - from) * ease;
+        document.getElementById('total-funds').textContent = formatMoney(currentDisplay);
+        if (t < 1) {
+          rafId = requestAnimationFrame(step);
+        } else {
+          currentDisplay = target;
+          document.getElementById('total-funds').textContent = formatMoney(currentDisplay);
+          rafId = null;
+        }
+      }
+      rafId = requestAnimationFrame(step);
+    }
+
+    // ===== Fetching logic =====
+    async function fetchDonations(){
+      const statusNode = document.getElementById('fetch-status');
+      statusNode.textContent = 'Loading…';
+      try {
+        const resp = await fetch(DONATIONS_URL, { mode: 'cors', cache: 'no-cache' });
+        if (!resp.ok) throw new Error('HTTP ' + resp.status + ' ' + resp.statusText);
+
+        const contentType = (resp.headers.get('content-type') || '').toLowerCase();
+
+        if (contentType.includes('application/json')){
+          // If HCB exposes a JSON endpoint publicly this would be ideal. Handle a few shapes.
+          const data = await resp.json();
+          let total = null;
+
+          if (Array.isArray(data)){
+            // Possibly an array of donation objects. Try to sum amount/amount_cents/total
+            total = data.reduce((sum, d) => {
+              if (!d) return sum;
+              if (d.amount != null && !isNaN(Number(d.amount))) return sum + Number(d.amount);
+              if (d.amount_cents != null && !isNaN(Number(d.amount_cents))) return sum + Number(d.amount_cents) / 100;
+              if (d.total != null && !isNaN(Number(d.total))) return sum + Number(d.total);
+              return sum;
+            }, 0);
+          } else if (typeof data === 'object' && data !== null){
+            if (!isNaN(Number(data.total))) total = Number(data.total);
+            else if (!isNaN(Number(data.amount))) total = Number(data.amount);
+          }
+
+          if (total == null || isNaN(total)){
+            // Fall back to text parsing if JSON didn't contain a clear total
+            const text = await resp.text();
+            const parsed = parseTotalFromHtml(text);
+            if (parsed == null) throw new Error('Unable to determine total from JSON response');
+            total = parsed;
+          }
+
+          animateCounter(total);
+          statusNode.textContent = 'Updated ' + new Date().toLocaleString();
+          document.getElementById('manual-section').style.display = 'none';
+          return;
+        }
+
+        // If not JSON, treat as HTML/text and parse the visible "Total" line
+        const text = await resp.text();
+        const parsed = parseTotalFromHtml(text);
+        if (parsed == null) throw new Error('Could not parse total from HTML. Response may have changed or be blocked by CORS.');
+
+        animateCounter(parsed);
+        statusNode.textContent = 'Updated ' + new Date().toLocaleString();
+        document.getElementById('manual-section').style.display = 'none';
+
+      } catch (err){
+        console.error('Error fetching donations:', err);
+        document.getElementById('fetch-status').textContent = 'Error fetching donations — ' + (err.message || err);
+        document.getElementById('hint').style.display = 'block';
+        document.getElementById('manual-section').style.display = 'block';
+      }
+    }
+
+    // ===== UI wiring =====
+    document.getElementById('refresh-btn').addEventListener('click', () => {
+      fetchDonations();
+    });
+    document.getElementById('help-btn').addEventListener('click', () => {
+      const el = document.getElementById('hint');
+      el.style.display = el.style.display === 'none' ? 'block' : 'none';
+    });
+    document.getElementById('apply-manual').addEventListener('click', () => {
+      const v = Number(document.getElementById('manual-value').value);
+      if (isNaN(v)) {
+        alert('Please enter a valid number (e.g. 352.00)');
+        return;
+      }
+      animateCounter(v);
+      document.getElementById('fetch-status').textContent = 'Manual override';
+    });
+
+    // Start polling on load
+    window.addEventListener('load', () => {
+      fetchDonations();
+      autoTimer = setInterval(fetchDonations, REFRESH_INTERVAL_MS);
+    });
+  </script>
+</body>
+    <script src="https://kit.fontawesome.com/your-code.js" crossorigin="anonymous"></script>
+
+</html>
