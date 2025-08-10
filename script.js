@@ -22,7 +22,6 @@ async function fetchDonations() {
     const parser = new DOMParser();
     const doc = parser.parseFromString(data.contents, 'text/html');
 
-    // Look for the specific section containing the "Total Raised" or similar label
     const totalLabel = Array.from(doc.querySelectorAll('h2, h3, p, span, div'))
       .find(el => /total/i.test(el.textContent) && /\$/.test(el.textContent));
 
@@ -43,3 +42,4 @@ async function fetchDonations() {
 
 fetchDonations();
 setInterval(fetchDonations, 1000);
+
